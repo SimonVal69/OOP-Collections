@@ -5,9 +5,11 @@ import enums.*;
 import exceptions.TransportTypeException;
 import interfaces.Competing;
 
+import java.util.Objects;
+
 public class Bus extends Transport<DriverD> implements Competing {
 
-    private Capacity capacity;
+    private final Capacity capacity;
     private VehicleType vehicleType;
 
     public Bus(String brand, String model, double engineVolume, DriverD driver, Capacity capacity, VehicleType vehicleType) {
@@ -61,5 +63,18 @@ public class Bus extends Transport<DriverD> implements Competing {
     @Override
     public void maxSpeed() {
         System.out.println("Максимальная скорость для " + getBrand() + " " + getModel() + "...");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bus bus)) return false;
+        if (!super.equals(o)) return false;
+        return capacity == bus.capacity && getVehicleType() == bus.getVehicleType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), capacity, getVehicleType());
     }
 }

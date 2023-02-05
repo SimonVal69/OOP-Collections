@@ -6,13 +6,14 @@ import servicies.Mechanics;
 import utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Transport<T extends Driver> {
-    private String brand;
-    private String model;
-    private double engineVolume;
-    private T driver;
-    private List<Mechanics> person;
+    private final String brand;
+    private final String model;
+    private final double engineVolume;
+    private final T driver;
+    private final List<Mechanics> person;
 
     public Transport(String brand, String model, double engineVolume, T driver) {
         this.brand = Utils.checkData(brand);
@@ -62,5 +63,15 @@ public abstract class Transport<T extends Driver> {
         return driver;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transport<?> transport)) return false;
+        return Double.compare(transport.getEngineVolume(), getEngineVolume()) == 0 && getBrand().equals(transport.getBrand()) && getModel().equals(transport.getModel()) && getDriver().equals(transport.getDriver()) && getPerson().equals(transport.getPerson());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrand(), getModel(), getEngineVolume(), getDriver(), getPerson());
+    }
 }

@@ -4,9 +4,11 @@ import driver.DriverB;
 import enums.*;
 import interfaces.Competing;
 
+import java.util.Objects;
+
 public class Car extends Transport<DriverB> implements Competing {
 
-    private CarBody carBody;
+    private final CarBody carBody;
     private VehicleType vehicleType;
 
     public Car(String brand, String model, double engineVolume, DriverB driver, CarBody carBody, VehicleType vehicleType) {
@@ -62,4 +64,16 @@ public class Car extends Transport<DriverB> implements Competing {
         System.out.println("Максимальная скорость для " + getBrand() + " " + getModel() + "...");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Car car)) return false;
+        if (!super.equals(o)) return false;
+        return carBody == car.carBody && getVehicleType() == car.getVehicleType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), carBody, getVehicleType());
+    }
 }
