@@ -2,6 +2,8 @@ package driver;
 
 import utils.Utils;
 
+import java.util.Objects;
+
 public abstract class Driver {
     private String name;
     private boolean hasDriverLicense;
@@ -40,5 +42,17 @@ public abstract class Driver {
 
     public double getDriveExperience() {
         return driveExperience;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver driver)) return false;
+        return isHasDriverLicense() == driver.isHasDriverLicense() && Double.compare(driver.getDriveExperience(), getDriveExperience()) == 0 && getName().equals(driver.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), isHasDriverLicense(), getDriveExperience());
     }
 }

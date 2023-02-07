@@ -4,10 +4,7 @@ import exceptions.TransportTypeException;
 import servicies.*;
 import transport.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +12,22 @@ public class Main {
         DriverB driverB = new DriverB("Bob", true, 15, "B");
         DriverC driverC = new DriverC("Thom", true, 10, "C");
         DriverD driverD = new DriverD("Jack", true, 17, "D");
+
+        Set<Driver> drivers = new HashSet<>();
+        drivers.add(driverB);
+        drivers.add(driverC);
+        drivers.add(driverD);
+        System.out.println(drivers);
+        drivers.add(driverB);
+        if (drivers.contains(driverB)) {
+            System.out.println("Водитель " + driverB + " уже есть, добавлять его нет смысла");
+        }
+        Iterator<Driver> driverIterator = drivers.iterator();
+        while (driverIterator.hasNext()) {
+            System.out.println(driverIterator.next());
+        }
+
+        System.out.println();
 
         Mechanics mechanic1 = new Mechanics("Daniel", "Company1");
         Mechanics mechanic2 = new Mechanics("Paolo", "Company2");
